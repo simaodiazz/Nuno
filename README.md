@@ -29,6 +29,7 @@ Follow the instructions below to get started with the Rental Car App:
 
    ```bash
    git clone https://github.com/your-username/Nuno.git
+   ```
 
 2. Navigate to the server directory
 
@@ -63,7 +64,7 @@ Follow the instructions below to get started with the Rental Car App:
 ### Usage
 <br>
 
-1. Start the server
+1. Navigate to server and start the server
 
     ```bash
     npn run start
@@ -72,7 +73,7 @@ Follow the instructions below to get started with the Rental Car App:
     yarn start
     ```
 
-2. Start the public
+2. Navigate to public and start the public
 
     ```bash
     npm run serve
@@ -81,6 +82,8 @@ Follow the instructions below to get started with the Rental Car App:
     yarn serve
     ```
 3. Open your browser and visit http://localhost:8080 to acess the Rental Car App
+
+<br>
 
 ## Project
 

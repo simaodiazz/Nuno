@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const { sequelize } = require('../database')
 
+const { Adress } = require('./adress')
+
 const User = sequelize.define('User', {
     id: {
         type: Sequelize.UUID,
@@ -34,6 +36,10 @@ const User = sequelize.define('User', {
     }
 }, {
     tableName: 'Users'
+})
+
+User.hasOne(Adress, {
+    foreignKey: 'id'
 })
 
 module.exports = {

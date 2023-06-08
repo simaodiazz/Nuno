@@ -29,6 +29,10 @@ const Adress = sequelize.define({
     }
 })
 
+Adress.belongsTo(User, {
+    foreignKey: 'id'
+})
+
 module.exports = {
     Adress
 }

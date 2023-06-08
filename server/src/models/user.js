@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const { sequelize } = require('../database')
 
-const User = sequelize.define({
+const User = sequelize.define('User', {
     id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
@@ -32,6 +32,8 @@ const User = sequelize.define({
         type: Sequelize.STRING,
         allowNull: true
     }
+}, {
+    tableName: 'Users'
 })
 
 module.exports = {

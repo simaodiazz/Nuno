@@ -3,22 +3,25 @@ const Server = require('./config/server.json')
 
 const express = Express()
 const { sequelize } = require('./database')
-const { userRoute } = require('./routes/user.route')
+const { userRoute } = require('./routes/userRoute')
 
-/**
- * Implementação dos middlewares de segurança
- */
 const helmet = require('helmet')
 const cors = require('cors')
 const rateLimit = require('express-rate-limit');
 
+/**
+ * Implementação dos middlewares de segurança
+ */
 express.use(helmet())
 express.use(cors())
-express.use(rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutos
-    max: 100, // número máximo de solicitações permitidas por IP dentro do intervalo de tempo
-}));
 
+/**
+ * Número máximo de solicitações permitidas pelo mesmo IP durante 15 minutos
+ */
+express.use(rateLimit({
+    windowMs: 900000,
+    max: 100,
+}));
 
 // Middleware para que todas as request e response sejam interpretadas com JSON
 express.use(Express.json())

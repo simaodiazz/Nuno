@@ -1,4 +1,4 @@
-const { create, remove, update, authenticate, find, findAll } = require('../controllers/user.controller')
+const { create, remove, update, authenticate, find, findAll } = require('../controllers/userController')
 const { Router } = require('express')
 
 const userRoute = new Router();

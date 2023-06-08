@@ -1,39 +1,34 @@
 const { User } = require('../models/user');
-const Joi = require('joi');
 const JWT = require('jsonwebtoken');
+const { createSchematic, updateSchematic } = require('../schematic/userSchematic')
 
-const createSchematic = Joi.object({
-    gender: Joi.string().valid('Masculino', 'Feminino', 'Desconhecido').required(),
-    email: Joi.string().email().required(),
-    username: Joi.string().required(),
-    password: Joi.string().required()
-});
-
-const updateSchematic = Joi.object({
-    gender: Joi.string().valid('Masculino', 'Feminino', 'Desconhecido'),
-    email: Joi.string().email(),
-    username: Joi.string(),
-    password: Joi.string()
-}).min(1);
-
+/**
+ * 
+ */
 const create = async (request, response) => {
     try {
         const { error } = createSchematic.validate(request.body);
         if (error) {
             return response.status(400).json({ error: error.details[0].message });
         }
+  
+        const { gender, email, username, password, street, city, state, country } = request.body;
 
-        const { gender, email, username, password } = request.body;
-
-        const user = await User.create({
-            gender,
-            email,
-            username,
-            password
-        });
-
-        const token = JWT.sign({ userId: user.id }, 'seuSegredoJWT', { expiresIn: '1h' });
-
+        const user = await User.create(
+            { 
+                gender, 
+                email, 
+                username, 
+                password,
+                street,
+                city,
+                state,
+                country
+            }
+        );
+  
+        const token = JWT.sign({ userId: user.id }, 'ABsjbgaKLÇWbgJsbAMskbçGAPWUÇ', { expiresIn: '1h' });
+  
         response.json({ user, token });
     } catch (error) {
         console.error(error);
@@ -58,7 +53,7 @@ const find = async (request, response) => {
 const findAll = async(request, response) => {
     
     const users = await User.findAll({
-        attributes: { exclude: ['password'] }
+        attributes: { exclude: ['password', 'street', 'city', 'state', 'country'] }
     });  
 
     response.json(users)
@@ -72,7 +67,7 @@ const update = async (request, response) => {
             return response.status(400).json({ error: error.details[0].message });
         }
 
-        const { gender, email, username, password } = request.body;
+        const { gender, email, username, password, street, city, state, country } = request.body;
 
         const user = await User.findByPk(id);
 
@@ -84,6 +79,10 @@ const update = async (request, response) => {
         if (email) user.email = email;
         if (username) user.username = username;
         if (password) user.password = password;
+        if (street) user.street = street;
+        if (city) user.city = city;
+        if (state) user.state = state;
+        if (country) user.country = country;
 
         await user.save();
 
@@ -117,21 +116,18 @@ const authenticate = async (request, response) => {
     try {
         const { username, password } = request.body;
   
-        // Verifique se o usuário existe no banco de dados
         const user = await User.findOne({ where: { username } });
   
         if (!user) {
             return response.status(401).json({ error: 'Credenciais inválidas' });
         }
   
-        // Verifique se a senha fornecida corresponde à senha armazenada (usando Bcrypt)
         const passwordMatch = await bcrypt.compare(password, user.password);
   
         if (!passwordMatch) {
             return response.status(401).json({ error: 'Credenciais inválidas' });
         }
-  
-        // Gere o token JWT com base nas informações do usuário
+
         const token = jwt.sign({ userId: user.id }, 'user_cookie', { expiresIn: '1h' });
   
         response.json({ token });

@@ -13,7 +13,7 @@ User.init(
         },
     
         gender: {
-            type: DataTypes.ENUM('Masculino', 'Femenino', 'Binário', 'Gay', 'Lésbico', 'Desconhecido...'),
+            type: DataTypes.ENUM('Masculino', 'Femenino', 'Binário', 'Anônimo'),
             allowNull: false
         
         },

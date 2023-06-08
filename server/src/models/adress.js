@@ -28,3 +28,7 @@ const Adress = sequelize.define({
         allowNull: false
     }
 })
+
+module.exports = {
+    Adress
+}

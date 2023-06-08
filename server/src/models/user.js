@@ -1,6 +1,7 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Sequelize, Model, DataTypes, UUID, UUIDV4 } = require('sequelize');
 const { sequelize } = require('../database')
 const { Address } = require('./address')
+const { Bcrypt } = require('bcrypt')
 
 class User extends Model {}
 
@@ -43,6 +44,8 @@ User.init(
         tableName: 'Users'
     }
 );
+
+User.beforeCreate()
 
 User.hasMany(Address);
 

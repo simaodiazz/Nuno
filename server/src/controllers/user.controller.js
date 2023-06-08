@@ -1,8 +1,28 @@
 const { User } = require('../models/user');
+const Joi = require('joi');
 const JWT = require('jsonwebtoken');
+
+const createSchematic = Joi.object({
+    gender: Joi.string().valid('Masculino', 'Feminino', 'Desconhecido').required(),
+    email: Joi.string().email().required(),
+    username: Joi.string().required(),
+    password: Joi.string().required()
+});
+
+const updateSchematic = Joi.object({
+    gender: Joi.string().valid('Masculino', 'Feminino', 'Desconhecido'),
+    email: Joi.string().email(),
+    username: Joi.string(),
+    password: Joi.string()
+}).min(1);
 
 const create = async (request, response) => {
     try {
+        const { error } = createSchematic.validate(request.body);
+        if (error) {
+            return response.status(400).json({ error: error.details[0].message });
+        }
+
         const { gender, email, username, password } = request.body;
 
         const user = await User.create({
@@ -22,23 +42,27 @@ const create = async (request, response) => {
 };
 
 const find = async (request, response) => {
+    const { id } = request.params;
 
-    const { id } = request.params
-
-    const user = await User.findByPk(id)
+    const user = await User.findByPk(id);
 
     if (!user) {
         return response.status(404).json({ error: 'Utilizador não encontrado' });
     }
 
-    const { gender, email, username } = user
+    const { gender, email, username } = user;
 
-    response.json({ gender, email, username })
-}
+    response.json({ gender, email, username });
+};
 
 const update = async (request, response) => {
     try {
         const { id } = request.params;
+        const { error } = updateSchematic.validate(request.body);
+        if (error) {
+            return response.status(400).json({ error: error.details[0].message });
+        }
+
         const { gender, email, username, password } = request.body;
 
         const user = await User.findByPk(id);
@@ -47,10 +71,10 @@ const update = async (request, response) => {
             return response.status(404).json({ error: 'Utilizador não encontrado' });
         }
 
-        user.gender = gender;
-        user.email = email;
-        user.username = username;
-        user.password = password;
+        if (gender) user.gender = gender;
+        if (email) user.email = email;
+        if (username) user.username = username;
+        if (password) user.password = password;
 
         await user.save();
 
@@ -68,7 +92,7 @@ const remove = async (request, response) => {
         const user = await User.findByPk(id);
 
         if (!user) {
-      return response.status(404).json({ error: 'Usuário não encontrado' });
+            return response.status(404).json({ error: 'Usuário não encontrado' });
         }
 
         await user.destroy();

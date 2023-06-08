@@ -1,11 +1,11 @@
 const Joi = require('joi')
 
 /**
- * Estrutura básica para criação de um utilizador
+ * Estrutura para criação de um utilizador
  */
 const createSchematic = Joi.object({
     gender: Joi.string().valid('Masculino', 'Feminino', 'Desconhecido').required(),
-    email: Joi.string().email().required(),
+    email: Joi.string().required(),
     username: Joi.string().required(),
     password: Joi.string().required(),
     street: Joi.string().required(),
@@ -15,11 +15,11 @@ const createSchematic = Joi.object({
 });
 
 /**
- * Estrutura básica para atualização de um utilizador
+ * Estrutura para atualização de um utilizador
  */
 const updateSchematic = Joi.object({
     gender: Joi.string().valid('Masculino', 'Feminino', 'Desconhecido'),
-    email: Joi.string().email(),
+    email: Joi.string(),
     username: Joi.string(),
     password: Joi.string(),
     street: Joi.string(),

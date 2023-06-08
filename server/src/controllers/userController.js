@@ -1,10 +1,7 @@
 const { User } = require('../models/user');
 const JWT = require('jsonwebtoken');
-const { createSchematic, updateSchematic } = require('../schematic/userSchematic')
+const { createSchematic, updateSchematic } = require('../schematics/userSchematic')
 
-/**
- * 
- */
 const create = async (request, response) => {
     try {
         const { error } = createSchematic.validate(request.body);

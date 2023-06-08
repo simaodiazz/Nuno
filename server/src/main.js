@@ -1,13 +1,23 @@
+/**
+ * Importações de modulos
+ */
 const Express = require('express')
 const Server = require('./config/server.json')
 
-const express = Express()
 const { sequelize } = require('./database')
+
 const { userRoute } = require('./routes/userRoute')
+const { carRoute } = require('./routes/carRoute')
+const { rentedRoute } = require('./routes/rentedRoute')
 
 const helmet = require('helmet')
 const cors = require('cors')
 const rateLimit = require('express-rate-limit');
+
+/**
+ * Criação de uma instância para inicialização do servidor Express
+ */
+const express = Express()
 
 /**
  * Implementação dos middlewares de segurança
@@ -23,7 +33,9 @@ express.use(rateLimit({
     max: 100,
 }));
 
-// Middleware para que todas as request e response sejam interpretadas com JSON
+/** 
+ *  Middleware para que todas as request e response sejam interpretadas com JSON
+*/
 express.use(Express.json())
 
 // Conectando ao banco de dados e caso conecte ao banco de dados liga o servidor express
@@ -39,5 +51,6 @@ sequelize
     }
 )
 
-// Usando a rota dos user
+// Usando a rota dos utilizadores e dos carros
 express.use('/api', userRoute)
+express.use('/api', carRoute)

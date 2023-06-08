@@ -49,8 +49,6 @@ Address.init(
     }
 );
 
-Address.belongsTo(User)
-
 module.exports = {
     Address
 };

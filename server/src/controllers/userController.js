@@ -10,4 +10,10 @@ const create = async(request, response) => {
         username,
         password
     })
+
+    response.json(user)
+}
+
+module.exports = {
+    create
 }

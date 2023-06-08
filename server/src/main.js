@@ -3,6 +3,7 @@ const Server = require('./config/server.json')
 
 const express = Express()
 const { sequelize } = require('./database')
+const { router } = require('./routes/userRoute')
 
 sequelize
     .sync()
@@ -15,3 +16,5 @@ sequelize
         console.log(error)
     }
 )
+
+express.use('/api', router)

@@ -3,7 +3,7 @@ const Server = require('./config/server.json')
 
 const express = Express()
 const { sequelize } = require('./database')
-const { router } = require('./routes/userRoute')
+const { router } = require('./routes/user.route')
 
 express.use(Express.json())
 

@@ -85,6 +85,6 @@ Follow the instructions below to get started with the Rental Car App:
 
 <br>
 
-## Project
+## Struct
 
 I'm go write when i finish the project

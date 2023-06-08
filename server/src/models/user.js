@@ -13,9 +13,16 @@ User.init(
         },
     
         gender: {
-            type: DataTypes.ENUM('Masculino', 'Femenino', 'Binário', 'Anônimo'),
-            allowNull: false
-        
+            type: DataTypes.ENUM('Masculino', 'Femenino', 'Binário', 'Não revelado'),
+            allowNull: false,
+            defaultValue: 'Não revelado',
+            set(value) {
+                if (!value) {
+                    this.setDataValue('gender', 'Não revelado')
+                } else {
+                    this.setDataValue('gender', value)
+                }
+            }
         },
         
         email: {
@@ -58,9 +65,9 @@ User.init(
             allowNull: true
         },
 
-        isAdmin: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
+        role: {
+            type: DataTypes.STRING,
+            defaultValue: 'default'
         }
     },
     {

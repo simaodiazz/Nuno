@@ -5,7 +5,10 @@ const Express = require('express')
 const Server = require('./config/server.json')
 
 const { sequelize } = require('./database')
+
 const { userRoute } = require('./routes/userRoute')
+const { carRoute } = require('./routes/carRoute')
+const { rentedRoute } = require('./routes/rentedRoute')
 
 const helmet = require('helmet')
 const cors = require('cors')
@@ -48,5 +51,6 @@ sequelize
     }
 )
 
-// Usando a rota dos user
+// Usando a rota dos utilizadores e dos carros
 express.use('/api', userRoute)
+express.use('/api', carRoute)

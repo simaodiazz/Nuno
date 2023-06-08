@@ -1,3 +1,7 @@
 {
-    "port": 3000
+    "port": 3000,
+    "secret": {
+        "jwt": "Qqe[2/H4(a[65@DJBp!7K$ZzQ$!AVJPTg}-@()9Hgt}FTWhfDH",
+        "cryptograpy": "k5R8crp%.(mp#h4qf)Rq/_,3F(5h)HgfdDec+x,X=f:wh2[Wrn"
+    }
 }

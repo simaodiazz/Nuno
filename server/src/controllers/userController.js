@@ -101,7 +101,7 @@ const authenticate = async (request, response) => {
         }
   
         // Gere o token JWT com base nas informações do usuário
-        const token = JWT.sign({ userId: user.id }, 'seuSegredoJWT', { expiresIn: '1h' });
+        const token = JWT.sign({ userId: user.id }, 'user_cookie', { expiresIn: '1h' });
   
         response.json({ token });
     } catch (error) {

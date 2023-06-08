@@ -3,14 +3,13 @@ const Server = require('./config/server.json')
 
 const express = Express()
 const { sequelize } = require('./database')
-const { router } = require('./routes/user.route')
+const { userRoute } = require('./routes/user.route')
 
 /**
  * Implementação dos middlewares de segurança
  */
-
 const helmet = require('helmet')
-const cors = rquire('cors')
+const cors = require('cors')
 const rateLimit = require('express-rate-limit');
 
 express.use(helmet())
@@ -21,8 +20,10 @@ express.use(rateLimit({
 }));
 
 
+// Middleware para que todas as request e response sejam interpretadas com JSON
 express.use(Express.json())
 
+// Conectando ao banco de dados e caso conecte ao banco de dados liga o servidor express
 sequelize
     .sync()
     .then(() => {
@@ -35,4 +36,5 @@ sequelize
     }
 )
 
-express.use('/api', router)
+// Usando a rota dos user
+express.use('/api', userRoute)

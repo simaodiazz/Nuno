@@ -55,6 +55,15 @@ const find = async (request, response) => {
     response.json({ gender, email, username });
 };
 
+const findAll = async(request, response) => {
+    
+    const users = await User.findAll({
+        attributes: { exclude: ['password'] }
+    });  
+
+    response.json(users)
+}
+
 const update = async (request, response) => {
     try {
         const { id } = request.params;
@@ -107,17 +116,24 @@ const remove = async (request, response) => {
 const authenticate = async (request, response) => {
     try {
         const { username, password } = request.body;
-
-        // Verifique as credenciais do utilizador (pode ser uma lógica mais complexa)
-        const user = await User.findOne({ where: { username, password } });
-
+  
+        // Verifique se o usuário existe no banco de dados
+        const user = await User.findOne({ where: { username } });
+  
         if (!user) {
             return response.status(401).json({ error: 'Credenciais inválidas' });
         }
-
+  
+        // Verifique se a senha fornecida corresponde à senha armazenada (usando Bcrypt)
+        const passwordMatch = await bcrypt.compare(password, user.password);
+  
+        if (!passwordMatch) {
+            return response.status(401).json({ error: 'Credenciais inválidas' });
+        }
+  
         // Gere o token JWT com base nas informações do usuário
-        const token = JWT.sign({ userId: user.id }, 'user_cookie', { expiresIn: '1h' });
-
+        const token = jwt.sign({ userId: user.id }, 'user_cookie', { expiresIn: '1h' });
+  
         response.json({ token });
     } catch (error) {
         console.error(error);
@@ -130,5 +146,6 @@ module.exports = {
     update,
     remove,
     find,
+    findAll,
     authenticate
 };

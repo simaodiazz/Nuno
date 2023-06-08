@@ -1,14 +1,15 @@
-const { create, remove, update, authenticate, find } = require('../controllers/user.controller')
+const { create, remove, update, authenticate, find, findAll } = require('../controllers/user.controller')
 const { Router } = require('express')
 
-const router = new Router();
+const userRoute = new Router();
 
-router.post('/user', create);
-router.delete('/user/:id', remove);
-router.put('/user/:id', update);
-router.post('/user/authenticate', authenticate);
-router.get('/user/:id', find)
+userRoute.post('/user', create);
+userRoute.delete('/user/:id', remove);
+userRoute.put('/user/:id', update);
+userRoute.post('/user/authenticate', authenticate);
+userRoute.get('/user/:id', find)
+userRoute.get('/user', findAll)
 
 module.exports = {
-    router
+    userRoute
 }

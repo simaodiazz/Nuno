@@ -1,47 +1,51 @@
-const Sequelize = require('sequelize')
+const { Sequelize, Model, DataTypes } = require('sequelize');
 const { sequelize } = require('../database')
+const { Address } = require('./address')
 
-const { Adress } = require('./adress')
+class User extends Model {}
 
-const User = sequelize.define('User', {
-    id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        primaryKey: true
+User.init(
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true
+        },
+
+        gender: {
+            type: DataTypes.ENUM('Masculino', 'Femenino', 'Desconhecido'),
+            allowNull: false
+        },
+
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+
+        avatar: {
+            type: DataTypes.STRING,
+            allowNull: true
+        }
     },
-
-    gender: {
-        type: Sequelize.ENUM('Masculino', 'Femenino', 'Desconhecido'),
-        allowNull: false
-    },
-
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-
-    username: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-
-    avatar: {
-        type: Sequelize.STRING,
-        allowNull: true
+    {
+        sequelize,
+        modelName: 'User',
+        tableName: 'Users'
     }
-}, {
-    tableName: 'Users'
-})
+);
 
-User.hasOne(Adress, {
-    foreignKey: 'id'
-})
+User.hasMany(Address);
 
-module.exports = {
+module.exports = { 
     User
-}
+};

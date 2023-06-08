@@ -5,6 +5,8 @@ const express = Express()
 const { sequelize } = require('./database')
 const { router } = require('./routes/userRoute')
 
+express.use(Express.json())
+
 sequelize
     .sync()
     .then(() => {

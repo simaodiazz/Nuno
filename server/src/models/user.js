@@ -32,6 +32,8 @@ const User = sequelize.define('User', {
         type: Sequelize.STRING,
         allowNull: true
     }
+}, {
+    tableName: 'Users'
 })
 
 module.exports = {

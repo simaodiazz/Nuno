@@ -12,6 +12,7 @@ A Rental Car App is a simple web application built using Express.js and Vue.js. 
 
 - Backend: Express.js (JavaScript)
 - Frontend: Vue.js (TypeScript)
+- Database: MySQL (Sequelize)
 
 ## Getting Started
 
@@ -23,7 +24,6 @@ Follow the instructions below to get started with the Rental Car App:
 
 ### Installation
 <br>
-
 
 1. Clone the repository:
 
@@ -84,7 +84,3 @@ Follow the instructions below to get started with the Rental Car App:
 3. Open your browser and visit http://localhost:8080 to acess the Rental Car App
 
 <br>
-
-## Struct
-
-I'm go write when i finish the project

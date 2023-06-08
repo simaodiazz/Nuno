@@ -56,6 +56,11 @@ User.init(
         avatar: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+
+        isAdmin: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     },
     {

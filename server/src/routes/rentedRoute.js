@@ -8,3 +8,7 @@ rentedRoute.get('/rented/:id', find)
 rentedRoute.get('/rented', findAll)
 rentedRoute.delete('/remove/:id', remove)
 rentedRoute.put('/remove/:id', remove)
+
+module.exports = {
+    rentedRoute
+}

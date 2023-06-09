@@ -8,7 +8,7 @@ const { createSchematic, updateSchematic } = require('../schematics/carSchematic
 /**
  * Metodo POST para criar um novo carro com base em createSchematic
  */
-const create = async (req, res) => {
+const create = async (request, response) => {
     try {
 
         // Validando se o corpo da requesição segue todas as regras
@@ -20,7 +20,7 @@ const create = async (req, res) => {
         }
 
         // Adquirindo todos os parametros de body
-        const { name, info, price_day, price_km, stock, image } = req.body;
+        const { name, info, price_day, price_km, stock, image } = request.body;
 
         // Cria o novo carro no banco de dados
         const car = await Car.create({
@@ -33,7 +33,7 @@ const create = async (req, res) => {
         });
 
         // Enviando o JSON do car como resposta
-        res.json(car);
+        response.json(car);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Ocorreu um erro ao criar um novo carro.' });

@@ -54,3 +54,4 @@ sequelize
 // Usando a rota dos utilizadores e dos carros
 express.use('/api', userRoute)
 express.use('/api', carRoute)
+express.use('/api', rentedRoute)

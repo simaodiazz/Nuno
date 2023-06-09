@@ -3,7 +3,6 @@
 O servidor é uma aplicação que recebe solicitações de clientes e fornece respostas correspondentes. Ele desempenha um papel fundamental no desenvolvimento de aplicativos web.
 
 ## Fundamentos
-<br>
 
 ### __Middleware__
 Um middleware é componente de software que age como um intermediário entre uma requesição e uma resposta. Normalmente, quando enviamos uma solicitação em JSON. O servidor precisa ter um middleware json `express.json()` para conseguir interpretar o que o arquivo JSON contém como corpo. Como já se deve perceber, é muito usado para segurança.
